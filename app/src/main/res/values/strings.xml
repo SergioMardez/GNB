@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GNB</string>
+    <string name="total_amount_0">Total amount: 0 €</string>
+    <string name="total_amount">Total amount: %1$s €</string>
+    <string name="currency_menu">Currency</string>
+    <string name="currency_string">%1$s to %2$s rate %3$s</string>
+    <string name="currency_rates">Currency Rates</string>
+    <string name="ok_button">OK</string>
+</resources>
