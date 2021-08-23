@@ -120,19 +120,25 @@ class GNBViewModel@Inject constructor(private val repository: GNBRepository) : V
             amount = transaction.amount
         }
 
-        for (euro in toEuroList) {
-            if (transaction.currency == euro.from) {
-                amount = formatAmount(transaction.amount * euro.rate)
+        //Direct conversion to euro
+        if (amount == 0.0) {
+            for (euro in toEuroList) {
+                if (transaction.currency == euro.from) {
+                    amount = formatAmount(transaction.amount * euro.rate)
+                }
             }
         }
 
-        for (currencyToEuro in toCurrencyToEuro) {
-            if (transaction.currency == currencyToEuro.from) {
-                amount = formatAmount(transaction.amount * currencyToEuro.rate)
+        //Convert to currency with direct conversion
+        if (amount == 0.0) {
+            for (currencyToEuro in toCurrencyToEuro) {
+                if (transaction.currency == currencyToEuro.from) {
+                    amount = formatAmount(transaction.amount * currencyToEuro.rate)
 
-                for (euro in toEuroList) {
-                    if (currencyToEuro.to == euro.from) {
-                        amount = formatAmount(transaction.amount * euro.rate)
+                    for (euro in toEuroList) {
+                        if (currencyToEuro.to == euro.from) {
+                            amount = formatAmount(amount * euro.rate)
+                        }
                     }
                 }
             }
