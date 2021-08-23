@@ -112,6 +112,7 @@ class GNBFragment : Fragment(), TransactionAdapter.EventItemListener {
     override fun onClickedTransaction(transaction: GnbTransaction) {
         val allTransactions = viewModel.getAllTransactions(transaction) as ArrayList<GnbTransaction>
         adapterSelectedSku.setItems(allTransactions)
+        binding.totalTransactions.text = context?.getString(R.string.total_transactions, allTransactions.size.toString())
         binding.totalAmount.text = context?.getString(R.string.total_amount, viewModel.getAllEuros(allTransactions).toString())
     }
 
