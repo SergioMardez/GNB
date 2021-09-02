@@ -99,21 +99,30 @@ class GNBFragment : Fragment(), TransactionAdapter.EventItemListener {
 
     private fun setupRecyclerViews() {
         adapter = TransactionAdapter(this, true)
-        binding.allTransactions.layoutManager = LinearLayoutManager(requireContext())
-        binding.allTransactions.addItemDecoration(DividerItemDecoration(binding.allTransactions.context, DividerItemDecoration.VERTICAL))
-        binding.allTransactions.adapter = adapter
+        binding.apply {
+            allTransactions.layoutManager = LinearLayoutManager(requireContext())
+            allTransactions.addItemDecoration(DividerItemDecoration(binding.allTransactions.context, DividerItemDecoration.VERTICAL))
+            allTransactions.adapter = adapter
+        }
 
         adapterSelectedSku = TransactionAdapter(this, false)
-        binding.selectedTransaction.layoutManager = LinearLayoutManager(requireContext())
-        binding.selectedTransaction.addItemDecoration(DividerItemDecoration(binding.allTransactions.context, DividerItemDecoration.VERTICAL))
-        binding.selectedTransaction.adapter = adapterSelectedSku
+        binding.apply {
+            selectedTransaction.layoutManager = LinearLayoutManager(requireContext())
+            selectedTransaction.addItemDecoration(DividerItemDecoration(binding.allTransactions.context, DividerItemDecoration.VERTICAL))
+            selectedTransaction.adapter = adapterSelectedSku
+        }
     }
 
     override fun onClickedTransaction(transaction: GnbTransaction) {
         val allTransactions = viewModel.getAllTransactions(transaction) as ArrayList<GnbTransaction>
         adapterSelectedSku.setItems(allTransactions)
-        binding.totalTransactions.text = context?.getString(R.string.total_transactions, allTransactions.size.toString())
-        binding.totalAmount.text = context?.getString(R.string.total_amount, viewModel.getAllEuros(allTransactions).toString())
+        binding.apply {
+            totalTransactions.text = context?.getString(R.string.total_transactions, allTransactions.size.toString())
+            totalAmount.text = context?.getString(
+                R.string.total_amount,
+                viewModel.getAllEuros(allTransactions).toString()
+            )
+        }
     }
 
     companion object {

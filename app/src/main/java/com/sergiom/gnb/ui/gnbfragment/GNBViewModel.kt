@@ -37,10 +37,10 @@ class GNBViewModel@Inject constructor(private val repository: GNBRepository) : V
 
             if (responseStatus.status == Resource.Status.SUCCESS) {
                 //currencyList = TestValues().getCurrencyTestValues() //Example data
-                currencyList = responseStatus.data!!
+                currencyList = responseStatus.data?: listOf()
                 setCurrency()
             } else if (responseStatus.status == Resource.Status.ERROR) {
-                mError.value = responseStatus.message!!
+                mError.value = responseStatus.message?: "Network Error"
             }
         }
     }
@@ -83,10 +83,10 @@ class GNBViewModel@Inject constructor(private val repository: GNBRepository) : V
 
             if (responseStatus.status == Resource.Status.SUCCESS) {
                 //transactionList = TestValues().getTransactionTestValues() //Example data
-                transactionList = responseStatus.data!!
+                transactionList = responseStatus.data?: listOf()
                 mTransactionList.value = transactionList
             } else if (responseStatus.status == Resource.Status.ERROR) {
-                mError.value = responseStatus.message!!
+                mError.value = responseStatus.message?: "Network Error"
             }
         }
     }
